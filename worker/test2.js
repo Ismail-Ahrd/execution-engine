@@ -78,7 +78,7 @@ app.post('/api/execute', async (req, res) => {
 
     // Step 2: Execute the script in a new process group and get its PGID
     const pgidCommand = `sudo -u ${execId} setsid sh -c 'echo $$ > ${tempDir}/pgid && sudo -u ${execId} sh ${scriptPath}'`;
-    chmod
+    
     const output = await execShellCommand(pgidCommand);
 
     // Step 3: Retrieve the process group ID (PGID)
