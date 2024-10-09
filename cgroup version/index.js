@@ -142,7 +142,6 @@ app.post("/api/execute", async (req, res) => {
     if (pgid) {
       await killProcessGroup(pgid);
     }
-    console.log("error here ", error);
     res.status(500).json({ error: error.message });
   } finally {
     // Cleanup - Delete the user and its files
