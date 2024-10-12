@@ -15,7 +15,7 @@ const images = [
 const execShellCommand = async (cmd) => {
   return new Promise((resolve, reject) => {
     console.log(`Executing command: ${cmd}`); // Log the command
-    exec(cmd, { timeout: 100000 }, (error, stdout, stderr) => {
+    exec(cmd, { timeout: 10000 }, (error, stdout, stderr) => {
       if (error || stderr) {
         console.error("Error: ", stderr || error.message);
         reject(stderr || error.message);
@@ -92,6 +92,7 @@ app.post("/api/execute", async (req, res) => {
   if (isrunning) {
     try {
       const output = await runDockerContainer(language, code);
+      await execShellCommand("docker volume prune -f") // dind create anonymous volumes which need to be removed
       res.json({ output });
     } catch (error) {
       res.status(500).json({ error: error });
@@ -116,10 +117,10 @@ const prePullDockerImages = async () => {
 
 // Start your server
 const startServer = async () => {
+  await prePullDockerImages();
   app.listen(3000, () => {
     console.log("Server running on port 3000");
   });
-  await prePullDockerImages();
 
   // Start the express app
 };
