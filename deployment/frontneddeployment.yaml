@@ -17,9 +17,9 @@ spec:
     spec:
       containers:
         - name: frontend-container
-          image: vinesen1/frontend # Use your custom frontend image
+          image: vinesen1/frontend
           ports:
-            - containerPort: 80 # The port that your frontend is served on
+            - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -32,5 +32,5 @@ spec:
   ports:
     - port: 80
       targetPort: 80
-      nodePort: 30001 # Access your frontend on this port
+      nodePort: 30001
   type: NodePort

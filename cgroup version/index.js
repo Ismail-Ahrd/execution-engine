@@ -16,11 +16,11 @@ const allowedOrigins = [
   "http://localhost:5173",
 ];
 
-// Enable CORS with dynamic origin
+
 app.use(
   cors({
     origin: (origin, callback) => {
-      // If no origin or the origin is in the allowed list, allow it
+      
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
